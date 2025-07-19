@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation";
 import { LoadingButton } from "./ui/loadingButon";
 import { Button } from "@/components/ui/button";
 import { Eye, EyeOff } from "lucide-react";
+import { ModeToggle } from "./themeToggle";
 
 const demoAccounts = [
   {
@@ -109,16 +110,6 @@ export function LoginForm({ ...props }: React.ComponentProps<"div">) {
                   </button>
                 </div>
               </div>
-              {/* <div className="mt-4">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  required
-                  onChange={(e) => setPassword(e.currentTarget.value)}
-                />
-              </div> */}
               <div className="mt-4">
                 <LoadingButton
                   type="submit"
@@ -142,7 +133,9 @@ export function LoginForm({ ...props }: React.ComponentProps<"div">) {
             <CardTitle>Demo Accounts</CardTitle>
             <CardDescription>
               Click to quick login, All passwords are{" "}
-              <span className="font-semibold text-gray-800">12345678</span>
+              <span className="font-semibold text-gray-100 bg-gray-800 dark:text-gray-800 dark:bg-gray-100  px-2 rounded">
+                12345678
+              </span>
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -166,6 +159,9 @@ export function LoginForm({ ...props }: React.ComponentProps<"div">) {
             ))}
           </CardContent>
         </Card>
+      </div>
+      <div className="fixed bottom-5 right-5">
+        <ModeToggle />
       </div>
     </div>
   );

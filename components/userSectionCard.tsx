@@ -58,7 +58,7 @@ export function UserSectionCards() {
           <CardAction>
             <Badge
               variant="secondary"
-              className={`flex items-center gap-1 mb-1 `}
+              className={`flex items-center gap-1 mb-1 text-black`}
             >
               <UserCog2 className="w-4 h-4" />
               {currentUser.role}
@@ -66,7 +66,7 @@ export function UserSectionCards() {
             {currentUser.isActive ? (
               <Badge
                 variant="secondary"
-                className="flex items-center gap-1 bg-green-400"
+                className="flex items-center gap-1 text-black bg-green-400"
               >
                 <IconUser className="w-4 h-4" />
                 Active

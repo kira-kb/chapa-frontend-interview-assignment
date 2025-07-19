@@ -48,7 +48,7 @@ export function SuperAdminSectionCards() {
           <CardAction>
             <Badge
               variant="secondary"
-              className={`flex items-center gap-1 mb-1 ${
+              className={`flex items-center text-black gap-1 mb-1 ${
                 currentUser.role === "admin" ? "bg-blue-300" : "bg-amber-300"
               }`}
             >
@@ -58,7 +58,7 @@ export function SuperAdminSectionCards() {
             {currentUser.isActive ? (
               <Badge
                 variant="secondary"
-                className="flex items-center gap-1 bg-green-400"
+                className="flex items-center text-black gap-1 bg-green-400"
               >
                 <IconUser className="w-4 h-4" />
                 Active
@@ -136,27 +136,29 @@ export function SuperAdminSectionCards() {
 
         <CardContent className="grid grid-cols-2 gap-4 text-center">
           {/* Active Users */}
-          <div className="flex flex-col items-center justify-center p-4 border rounded-lg bg-green-50">
-            <Users className="h-6 w-6 text-green-600 mb-1" />
-            <span className="text-sm text-muted-foreground">Active Users</span>
-            <span className="text-2xl font-bold text-green-700">
+          <div className="flex flex-col items-center justify-center p-4 border rounded-lg bg-green-50 dark:bg-green-900 dark:border-green-700">
+            <Users className="h-6 w-6 text-green-600 dark:text-green-300 mb-1" />
+            <span className="text-sm text-muted-foreground dark:text-green-200">
+              Active Users
+            </span>
+            <span className="text-2xl font-bold text-green-700 dark:text-green-100">
               {activeUsers}
             </span>
           </div>
 
           {/* Inactive Users */}
-          <div className="flex flex-col items-center justify-center p-4 border rounded-lg bg-red-50">
-            <UserX className="h-6 w-6 text-red-600 mb-1" />
-            <span className="text-sm text-muted-foreground">
+          <div className="flex flex-col items-center justify-center p-4 border rounded-lg bg-red-50 dark:bg-red-900 dark:border-red-700">
+            <UserX className="h-6 w-6 text-red-600 dark:text-red-300 mb-1" />
+            <span className="text-sm text-muted-foreground dark:text-red-200">
               Inactive Users
             </span>
-            <span className="text-2xl font-bold text-red-700">
+            <span className="text-2xl font-bold text-red-700 dark:text-red-100">
               {inactiveUsers}
             </span>
           </div>
         </CardContent>
 
-        <CardFooter className="text-xs text-muted-foreground">
+        <CardFooter className="text-xs text-muted-foreground dark:text-gray-400">
           Includes both active (logged-in) and inactive (deactivated) user
           accounts
         </CardFooter>
@@ -173,31 +175,31 @@ export function SuperAdminSectionCards() {
           </CardHeader>
 
           <CardContent className="grid grid-cols-2 gap-4 text-center">
-            {/* Active Users */}
-            <div className="flex flex-col items-center justify-center p-4 border rounded-lg bg-green-50">
-              <Users className="h-6 w-6 text-green-600 mb-1" />
-              <span className="text-sm text-muted-foreground">
-                Active Users
+            {/* Active Admins */}
+            <div className="flex flex-col items-center justify-center p-4 border rounded-lg bg-green-50 dark:bg-green-900 dark:border-green-700">
+              <Users className="h-6 w-6 text-green-600 dark:text-green-300 mb-1" />
+              <span className="text-sm text-muted-foreground dark:text-green-200">
+                Active Admins
               </span>
-              <span className="text-2xl font-bold text-green-700">
+              <span className="text-2xl font-bold text-green-700 dark:text-green-100">
                 {activeAdmins}
               </span>
             </div>
 
-            {/* Inactive Users */}
-            <div className="flex flex-col items-center justify-center p-4 border rounded-lg bg-red-50">
-              <UserX className="h-6 w-6 text-red-600 mb-1" />
-              <span className="text-sm text-muted-foreground">
-                Inactive Users
+            {/* Inactive Admins */}
+            <div className="flex flex-col items-center justify-center p-4 border rounded-lg bg-red-50 dark:bg-red-900 dark:border-red-700">
+              <UserX className="h-6 w-6 text-red-600 dark:text-red-300 mb-1" />
+              <span className="text-sm text-muted-foreground dark:text-red-200">
+                Inactive Admins
               </span>
-              <span className="text-2xl font-bold text-red-700">
+              <span className="text-2xl font-bold text-red-700 dark:text-red-100">
                 {inActiveAdmins}
               </span>
             </div>
           </CardContent>
 
-          <CardFooter className="text-xs text-muted-foreground">
-            Includes both active (logged-in) and inactive (deactivated) user
+          <CardFooter className="text-xs text-muted-foreground dark:text-gray-300">
+            Includes both active (logged-in) and inactive (deactivated) Admin
             accounts
           </CardFooter>
         </Card>
