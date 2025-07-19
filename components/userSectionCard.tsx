@@ -12,7 +12,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { DollarSign, UserCog2 } from "lucide-react";
+import { DollarSign, Eye, EyeOff, Loader2, UserCog2 } from "lucide-react";
 import { Input } from "./ui/input";
 import { LoadingButton } from "./ui/loadingButon";
 import { Label } from "./ui/label";
@@ -26,6 +26,17 @@ export function UserSectionCards() {
 
   const [form, setForm] = useState({ to: "", amount: 0, reason: "" });
   const [loading, setLoading] = useState(false);
+
+  const [showBalance, setShowBalance] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const toggleBalance = async () => {
+    if (showBalance) return setShowBalance(false);
+    setIsLoading(true);
+    await new Promise((res) => setTimeout(res, 2000));
+    setShowBalance(true);
+    setIsLoading(false);
+  };
 
   if (!currentUser) return;
 
@@ -58,7 +69,7 @@ export function UserSectionCards() {
           <CardAction>
             <Badge
               variant="secondary"
-              className={`flex items-center gap-1 mb-1 text-black`}
+              className={`flex items-center gap-1 mb-1`}
             >
               <UserCog2 className="w-4 h-4" />
               {currentUser.role}
@@ -101,16 +112,38 @@ export function UserSectionCards() {
         </CardFooter>
       </Card>
 
-      <Card className="bg-gradient-to-r from-emerald-100 via-emerald-200 to-emerald-100 dark:from-emerald-900 dark:to-emerald-800 shadow-md rounded-2xl">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+      <Card className="bg-gradient-to-r from-emerald-100 via-emerald-200 to-emerald-100 dark:from-emerald-800 dark:via-emerald-900 dark:to-emerald-800 shadow-md rounded-2xl">
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle className="text-md font-medium text-emerald-900 dark:text-emerald-100">
             Wallet Balance
           </CardTitle>
-          <DollarSign className="h-6 w-6 text-emerald-700 dark:text-emerald-300" />
+
+          <div className="flex items-center gap-2">
+            <DollarSign className="h-6 w-6 text-emerald-700 dark:text-emerald-300" />
+            <button
+              type="button"
+              onClick={toggleBalance}
+              className="text-emerald-700 dark:text-emerald-300 hover:opacity-80 cursor-pointer"
+              disabled={isLoading}
+            >
+              {showBalance ? (
+                <EyeOff className="h-5 w-5" />
+              ) : (
+                <Eye className="h-5 w-5" />
+              )}
+            </button>
+          </div>
         </CardHeader>
+
         <CardContent>
-          <div className="text-3xl font-bold text-emerald-700 dark:text-emerald-200">
-            ${balance.toFixed()}
+          <div className="text-3xl font-bold text-emerald-700 dark:text-emerald-200 min-h-[36px]">
+            {isLoading ? (
+              <Loader2 className="h-7 w-7 animate-spin" />
+            ) : showBalance ? (
+              `$${balance.toFixed()}`
+            ) : (
+              "••••••"
+            )}
           </div>
           <p className="text-sm text-muted-foreground mt-1">
             Available Balance
