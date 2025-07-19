@@ -9,11 +9,19 @@ import UserDashboard from "@/pages/UserDashboard";
 import { useAppStore } from "@/services/state";
 import AdminDashboard from "@/pages/AdminDashboard";
 import SuperAdminDashboard from "@/pages/SuperAdminDashboard";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const { currentUser } = useAppStore();
 
-  if (!currentUser) return;
+  // if (!currentUser) return;
+
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!currentUser) return router.push("/");
+  }, [currentUser]);
 
   return (
     <SidebarProvider
