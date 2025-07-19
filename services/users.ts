@@ -1195,7 +1195,7 @@ const users = [
   },
   {
     id: "9",
-    name: "Kirubel Bewket",
+    name: "Ephrata Bewket",
     email: "admin@chapa.com",
     password: "12345678",
     role: "admin",
@@ -1221,7 +1221,7 @@ const users = [
   },
   {
     id: "11",
-    name: "Kirubel Bewket",
+    name: "Amanueal Bewket",
     email: "Sadmin@chapa.com",
     password: "12345678",
     role: "super-admin",

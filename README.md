@@ -4,7 +4,7 @@ Welcome to the **Role-Based Wallet Dashboard** — a single-page mock app built 
 
 ## 🌍 Live Preview
 
-🔗 Hosted at: [https://your-app-url.com](https://your-app-url.com)
+🔗 Hosted at: [https://chapa-frontend-interview-assignment-two.vercel.app/](https://chapa-frontend-interview-assignment-two.vercel.app/)
 
 ## 🔐 How to Log In
 
@@ -12,11 +12,11 @@ This project **simulates login** — just select your role and you'll get a full
 
 # 👤 Demo Accounts
 
-| Name    | Email            | Password | Role        | Location    |
-| ------- | ---------------- | -------- | ----------- | ----------- |
-| Kirubel | Sadmin@chapa.com | 12345678 | Super-Admin | Addis Ababa |
-| Kirubel | admin@chapa.com  | 12345678 | Admin       | Gondar      |
-| Kirubel | user@chapa.com   | 12345678 | User        | Bahir Dar   |
+| Name     | Email            | Password | Role        | Location    |
+| -------- | ---------------- | -------- | ----------- | ----------- |
+| Amanueal | Sadmin@chapa.com | 12345678 | Super-Admin | Addis Ababa |
+| Ephrata  | admin@chapa.com  | 12345678 | Admin       | Gondar      |
+| Kirubel  | user@chapa.com   | 12345678 | User        | Bahir Dar   |
 
 _(You can find more mock data in `app/services/users.ts`)_
 
@@ -64,6 +64,7 @@ git clone https://github.com/kira-kb/chapa-frontend-interview-assignment.git
 cd chapa-frontend-interview-assignment
 npm install
 npm run dev
+
 ```
 
 Then go to: [http://localhost:3000](http://localhost:3000)
@@ -73,5 +74,3 @@ Then go to: [http://localhost:3000](http://localhost:3000)
 This project is for learning/demo purposes — there's no backend, no actual payments, and no real security. Just mock data, clean design, and simulated dashboards.
 
 Built with ❤️ by [KIRA](https://github.com/kira-kb) from 🇪🇹 Addis Ababa
-
----)

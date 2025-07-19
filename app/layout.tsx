@@ -33,12 +33,14 @@ export const metadata: Metadata = {
   creator: "Kirubel Bewket",
   applicationName: "Chapa Dashboard",
   category: "Web Application",
-  metadataBase: new URL("https://chapa-role-dashboard.vercel.app"),
+  metadataBase: new URL(
+    "https://chapa-frontend-interview-assignment-two.vercel.app/"
+  ),
   openGraph: {
     title: "Chapa Dashboard",
     description:
       "Explore dashboards based on user roles (User, Admin, Super Admin).",
-    url: "https://chapa-role-dashboard.vercel.app",
+    url: "https://chapa-frontend-interview-assignment-two.vercel.app/",
     siteName: "Chapa Dashboard",
     locale: "en_US",
     type: "website",

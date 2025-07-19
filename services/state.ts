@@ -42,7 +42,7 @@ const delay = (cb: () => void) => {
 export const useAppStore = create<AppState>()(
   devtools((set, get) => ({
     users,
-    currentUser: users[10] || null,
+    currentUser: null,
 
     login: (email, password) => {
       const signInUser =

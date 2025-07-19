@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import {
   Card,
   CardContent,
@@ -14,15 +13,36 @@ import { useAppStore } from "@/services/state";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { LoadingButton } from "./ui/loadingButon";
+import { Button } from "@/components/ui/button";
+import { Eye, EyeOff } from "lucide-react";
 
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+const demoAccounts = [
+  {
+    name: "Amanueal Bewket",
+    email: "Sadmin@chapa.com",
+    password: "12345678",
+    role: "Super-Admin",
+  },
+  {
+    name: "Ephrata Bewket",
+    email: "admin@chapa.com",
+    password: "12345678",
+    role: "Admin",
+  },
+  {
+    name: "Kirubel Bewket",
+    email: "user@chapa.com",
+    password: "12345678",
+    role: "User",
+  },
+];
+
+export function LoginForm({ ...props }: React.ComponentProps<"div">) {
   const { login } = useAppStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
 
@@ -32,70 +52,121 @@ export function LoginForm({
     setTimeout(() => {
       login(email, password);
       router.push("/dashboard");
-    }, 4000);
+    }, 2000);
+  };
+
+  const handleQuickLogin = (email: string, password: string) => {
+    setEmail(email);
+    setPassword(password);
+    setLoading(true);
+    setTimeout(() => {
+      login(email, password);
+      router.push("/dashboard");
+    }, 2000);
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-3">
+    <div className="flex items-center justify-center gap-8" {...props}>
+      <div className="inline">
+        {/* Normal Login Card */}
+        <Card className="min-w-[400px]">
+          <CardHeader>
+            <CardTitle>Login</CardTitle>
+            <CardDescription>Enter email and password</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form>
+              <div>
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
                   placeholder="m@example.com"
+                  value={email}
                   required
-                  onInput={(e) => setEmail(e.currentTarget.value)}
+                  onChange={(e) => setEmail(e.currentTarget.value)}
                 />
               </div>
-              <div className="grid gap-3">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <a
-                    href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+
+              <div className="mt-4">
+                <Label htmlFor="password">Password</Label>
+                <div className="relative">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    required
+                    onChange={(e) => setPassword(e.currentTarget.value)}
+                    className="pr-10"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground"
+                    tabIndex={-1}
                   >
-                    Forgot your password?
-                  </a>
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
                 </div>
+              </div>
+              {/* <div className="mt-4">
+                <Label htmlFor="password">Password</Label>
                 <Input
                   id="password"
                   type="password"
-                  onInput={(e) => setPassword(e.currentTarget.value)}
+                  value={password}
                   required
+                  onChange={(e) => setPassword(e.currentTarget.value)}
                 />
-              </div>
-              <div className="flex flex-col gap-3">
+              </div> */}
+              <div className="mt-4">
                 <LoadingButton
                   type="submit"
                   loading={loading}
                   onClick={handleSubmit}
-                  // onSubmit={handleSubmit}
-                  disabled={email && password ? false : true}
+                  disabled={!email || !password}
                   className="w-full"
                 >
                   Login
                 </LoadingButton>
               </div>
-            </div>
-            <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <a href="#" className="underline underline-offset-4">
-                Sign up
-              </a>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+
+      <div>
+        {/* Quick Login Card */}
+        <Card className="min-w-[400px]">
+          <CardHeader>
+            <CardTitle>Demo Accounts</CardTitle>
+            <CardDescription>
+              Click to quick login, All passwords are{" "}
+              <span className="font-semibold text-gray-800">12345678</span>
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {demoAccounts.map((acc) => (
+              <div key={acc.email}>
+                <div className="text-sm font-semibold">{acc.name}</div>
+                <div className="text-xs text-muted-foreground">
+                  Email: {acc.email}
+                </div>
+                <div className="text-xs text-muted-foreground mb-1">
+                  Role: {acc.role}
+                </div>
+                <Button
+                  size="sm"
+                  onClick={() => handleQuickLogin(acc.email, acc.password)}
+                  className="w-full"
+                >
+                  Quick Login
+                </Button>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
