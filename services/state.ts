@@ -1,0 +1,155 @@
+import { toast } from "sonner";
+import { create } from "zustand";
+import { devtools } from "zustand/middleware";
+
+import users from "./users";
+import { AddAdmin, Transaction, User } from "@/types/types";
+
+import pp2 from "@/assets/imgs/pp2.png";
+
+interface AppState {
+  users: User[];
+  setUsers: (users: User[]) => void;
+  currentUser: User | null;
+
+  login: (email: string, password: string) => void;
+  logout: () => void;
+  initiateTransaction: (tx: Omit<Transaction, "id" | "date">) => void;
+
+  activateUser: (id: string) => void;
+  deactivateUser: (id: string) => void;
+
+  addAdmin: (user: AddAdmin) => void;
+  removeAdmin: (id: string) => void;
+  toggleUserStatus: (id: string) => void;
+
+  systemStats: {
+    totalPayments: number;
+    activeUsers: number;
+  };
+}
+
+const delay = (cb: () => void) => {
+  const ms = Math.floor(Math.random() * 2000) + 3000; // 3s to 5s
+  toast.loading("Processing...");
+  setTimeout(() => {
+    cb();
+    toast.dismiss();
+    toast.success("Done!");
+  }, ms);
+};
+
+export const useAppStore = create<AppState>()(
+  devtools((set, get) => ({
+    users,
+    currentUser: users[10] || null,
+
+    login: (email, password) => {
+      const signInUser =
+        get().users.find((u) => u.email === email && u.password === password) ||
+        null;
+
+      if (!signInUser) return toast.error("Invalid Email or Password");
+
+      set(() => ({
+        currentUser: signInUser,
+      }));
+
+      toast.success(`Welcome Back ${signInUser.name}`);
+    },
+
+    logout: () => set({ currentUser: null }),
+
+    initiateTransaction: (tx) =>
+      delay(() =>
+        set((state) => {
+          const user = state.currentUser;
+          if (!user) return {};
+
+          const reciverUser = state.users.filter((u) => u.id === tx.to);
+
+          if (!reciverUser) {
+            toast.error("Invalid User ID");
+            return {};
+          }
+
+          const date = new Date();
+
+          const newTx: Transaction = {
+            id: Math.random().toString(36).substring(2),
+            date: `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`,
+            ...tx,
+            to: reciverUser[0].name,
+          };
+
+          const updatedUsers = state.users.map((u) => {
+            if (u.id === user.id) {
+              return {
+                ...u,
+                balance: u.balance - tx.amount,
+                transactions: [...u.transactions, newTx],
+              };
+            }
+            return u;
+          });
+
+          toast.success(`$${tx.amount} sent to ${tx.to}`);
+
+          return {
+            users: updatedUsers,
+            currentUser: {
+              ...user,
+              balance: user.balance - tx.amount,
+              transactions: [...user.transactions, newTx],
+            },
+          };
+        })
+      ),
+
+    addAdmin: (newAdmin: AddAdmin) =>
+      delay(() =>
+        set((state) => ({
+          users: [
+            ...state.users,
+            {
+              id: state.users.length + 1 + "",
+              name: newAdmin.name,
+              email: newAdmin.email,
+              password: newAdmin.password,
+              registeredLocation: newAdmin.registeredLocation,
+              role: "admin", // or "superadmin", based on your enum
+              avatar: pp2.src,
+              isActive: true,
+              balance: 0,
+              createdAt: new Date().toISOString(),
+              transactions: [],
+            },
+          ],
+        }))
+      ),
+
+    removeAdmin: (id) =>
+      delay(() =>
+        set((state) => ({
+          users: state.users.filter((u) => u.id !== id),
+        }))
+      ),
+
+    systemStats: {
+      get totalPayments() {
+        return get()
+          .users.flatMap((u) => u.transactions)
+          .reduce((sum, tx) => sum + tx.amount, 0);
+      },
+    },
+
+    toggleUserStatus: (id) =>
+      delay(() =>
+        set((state) => ({
+          users: state.users.map((user) =>
+            user.id === id ? { ...user, isActive: !user.isActive } : user
+          ),
+        }))
+      ),
+  }))
+);

@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💳 Role-Based Wallet Dashboard (User / Admin / Super Admin)
 
-## Getting Started
+Welcome to the **Role-Based Wallet Dashboard** — a single-page mock app built with 💡 **Next.js** that lets you log in as different roles and see completely different dashboards based on your access level.
 
-First, run the development server:
+## 🌍 Live Preview
+
+🔗 Hosted at: [https://your-app-url.com](https://your-app-url.com)
+
+## 🔐 How to Log In
+
+This project **simulates login** — just select your role and you'll get a full dashboard tailored to that role.
+
+# 👤 Demo Accounts
+
+| Name    | Email            | Password | Role        | Location    |
+| ------- | ---------------- | -------- | ----------- | ----------- |
+| Kirubel | Sadmin@chapa.com | 12345678 | Super-Admin | Addis Ababa |
+| Kirubel | admin@chapa.com  | 12345678 | Admin       | Gondar      |
+| Kirubel | user@chapa.com   | 12345678 | User        | Bahir Dar   |
+
+_(You can find more mock data in `app/services/users.ts`)_
+
+- 👤 **User**
+
+  - View your mock wallet balance
+  - See a list of mock recent transactions
+  - Use a simple form to “initiate” a new transaction
+
+- 🛠️ **Admin**
+
+  - View a list of mocked users
+  - Toggle their active/inactive status
+  - See total payment summaries (table)
+
+- 🧙‍♂️ **Super Admin**
+  - Everything Admin can do, plus:
+    - Add or remove Admins (mocked)
+    - See system-wide stats (total payments, active users, etc.)
+
+## 🧱 Main Features
+
+- 🔄 Role-based UI rendering
+- 📦 Mock API calls (with `setTimeout` to simulate async)
+- 💾 Global state via Zustand
+- 🎨 Responsive UI built with [shadcn/ui](https://ui.shadcn.com/)
+- 📁 Clean file structure:
+  - `components/` – reusable UI pieces
+  - `pages/` – route-based components (Next.js)
+  - `services/` – mock services and utilities
+  - `types/` – type definitions
+
+## 🛠️ Tech Stack
+
+- Next.js 15+
+- TypeScript
+- TailwindCSS
+- Shadcn UI
+- Zustand or Context API for state
+
+## 🧪 How to Run Locally
 
 ```bash
+git clone https://github.com/kira-kb/chapa-frontend-interview-assignment.git
+cd chapa-frontend-interview-assignment
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then go to: [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🔎 Notes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project is for learning/demo purposes — there's no backend, no actual payments, and no real security. Just mock data, clean design, and simulated dashboards.
 
-## Learn More
+Built with ❤️ by [KIRA](https://github.com/kira-kb) from 🇪🇹 Addis Ababa
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---)
