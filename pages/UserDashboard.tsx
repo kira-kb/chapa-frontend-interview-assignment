@@ -34,7 +34,7 @@ export default function UserDashboard() {
               <TableHeader>
                 <TableRow>
                   <TableHead>Date</TableHead>
-                  {/* <TableHead>From</TableHead> */}
+                  <TableHead>From</TableHead>
                   <TableHead>To</TableHead>
                   <TableHead>Amount</TableHead>
                   <TableHead>Reason</TableHead>
@@ -44,6 +44,7 @@ export default function UserDashboard() {
                 {userTransactions.map((t) => (
                   <TableRow key={t.id}>
                     <TableCell>{t.date}</TableCell>
+                    <TableCell>{t.from}</TableCell>
                     <TableCell>{t.to}</TableCell>
                     <TableCell>${t.amount}</TableCell>
                     <TableCell>{t.reason}</TableCell>

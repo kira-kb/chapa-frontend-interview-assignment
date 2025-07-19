@@ -21,7 +21,7 @@ export default function Page() {
 
   useEffect(() => {
     if (!currentUser) return router.push("/");
-  }, [currentUser]);
+  }, [currentUser, router]);
 
   return (
     <SidebarProvider
