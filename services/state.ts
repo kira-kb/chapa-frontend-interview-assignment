@@ -77,6 +77,7 @@ export const useAppStore = create<AppState>()(
             id: Math.random().toString(36).substring(2),
             date: `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`,
             ...tx,
+            from: "Me",
             to: reciverUser[0].name,
           };
 
