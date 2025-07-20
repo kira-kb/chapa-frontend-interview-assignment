@@ -126,45 +126,43 @@ export function SuperAdminSectionCards() {
       )}
 
       {/* Users */}
-      {currentUser.role === "super-admin" && (
-        <Card>
-          <CardHeader>
-            <CardDescription>User Statistics</CardDescription>
-            <CardTitle className="text-2xl font-bold">
-              Total Users: {users.filter((u) => u.role === "user").length}
-            </CardTitle>
-          </CardHeader>
+      <Card>
+        <CardHeader>
+          <CardDescription>User Statistics</CardDescription>
+          <CardTitle className="text-2xl font-bold">
+            Total Users: {users.filter((u) => u.role === "user").length}
+          </CardTitle>
+        </CardHeader>
 
-          <CardContent className="grid grid-cols-2 gap-4 text-center">
-            {/* Active Users */}
-            <div className="flex flex-col items-center justify-center p-4 border rounded-lg bg-green-50 dark:bg-green-900 dark:border-green-700">
-              <Users className="h-6 w-6 text-green-600 dark:text-green-300 mb-1" />
-              <span className="text-sm text-muted-foreground dark:text-green-200">
-                Active Users
-              </span>
-              <span className="text-2xl font-bold text-green-700 dark:text-green-100">
-                {activeUsers}
-              </span>
-            </div>
+        <CardContent className="grid grid-cols-2 gap-4 text-center">
+          {/* Active Users */}
+          <div className="flex flex-col items-center justify-center p-4 border rounded-lg bg-green-50 dark:bg-green-900 dark:border-green-700">
+            <Users className="h-6 w-6 text-green-600 dark:text-green-300 mb-1" />
+            <span className="text-sm text-muted-foreground dark:text-green-200">
+              Active Users
+            </span>
+            <span className="text-2xl font-bold text-green-700 dark:text-green-100">
+              {activeUsers}
+            </span>
+          </div>
 
-            {/* Inactive Users */}
-            <div className="flex flex-col items-center justify-center p-4 border rounded-lg bg-red-50 dark:bg-red-900 dark:border-red-700">
-              <UserX className="h-6 w-6 text-red-600 dark:text-red-300 mb-1" />
-              <span className="text-sm text-muted-foreground dark:text-red-200">
-                Inactive Users
-              </span>
-              <span className="text-2xl font-bold text-red-700 dark:text-red-100">
-                {inactiveUsers}
-              </span>
-            </div>
-          </CardContent>
+          {/* Inactive Users */}
+          <div className="flex flex-col items-center justify-center p-4 border rounded-lg bg-red-50 dark:bg-red-900 dark:border-red-700">
+            <UserX className="h-6 w-6 text-red-600 dark:text-red-300 mb-1" />
+            <span className="text-sm text-muted-foreground dark:text-red-200">
+              Inactive Users
+            </span>
+            <span className="text-2xl font-bold text-red-700 dark:text-red-100">
+              {inactiveUsers}
+            </span>
+          </div>
+        </CardContent>
 
-          <CardFooter className="text-xs text-muted-foreground dark:text-gray-400">
-            Includes both active (logged-in) and inactive (deactivated) user
-            accounts
-          </CardFooter>
-        </Card>
-      )}
+        <CardFooter className="text-xs text-muted-foreground dark:text-gray-400">
+          Includes both active (logged-in) and inactive (deactivated) user
+          accounts
+        </CardFooter>
+      </Card>
 
       {/* Admins */}
       {currentUser.role === "super-admin" && (

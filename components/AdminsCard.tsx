@@ -14,6 +14,9 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { AddAdmin, User } from "@/types/types";
 import { AddAdminDialog } from "./AdminDialog";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Badge } from "./ui/badge";
+import { Ban, CheckCircle2, ShieldOff } from "lucide-react";
 
 interface AdminsCardProps {
   users: User[];
@@ -35,6 +38,17 @@ export function AdminsCard({
   const filteredAdmins = users
     .filter((user) => user.role === "admin")
     .filter((user) => user.name.toLowerCase().includes(search.toLowerCase()));
+
+  if (users.filter((u) => u.role === "admin").length < 1)
+    return (
+      <div className="flex flex-col items-center justify-center gap-3 text-center">
+        <ShieldOff className="h-12 w-12 text-muted-foreground" />
+        <h3 className="text-xl font-semibold">No Admins Found</h3>
+        <p className="text-muted-foreground">
+          Add Admins to the system to get started.
+        </p>
+      </div>
+    );
 
   return (
     <Card className="shadow-md rounded-2xl border">
@@ -60,8 +74,7 @@ export function AdminsCard({
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
+              <TableHead>User</TableHead>
               <TableHead>Status</TableHead>
               <TableHead>Action</TableHead>
             </TableRow>
@@ -70,28 +83,38 @@ export function AdminsCard({
             {filteredAdmins.length > 0 ? (
               filteredAdmins.map((user) => (
                 <TableRow key={user.id}>
-                  <TableCell>{user.name}</TableCell>
-                  <TableCell>{user.email}</TableCell>
                   <TableCell>
-                    <span
-                      className={`font-medium ${
-                        user.isActive ? "text-green-600" : "text-red-500"
-                      }`}
-                    >
-                      {user.isActive ? "Active" : "Inactive"}
-                    </span>
+                    <div className="flex items-center gap-4">
+                      <Avatar>
+                        <AvatarImage src={user.avatar} alt={user.name} />
+                        <AvatarFallback>
+                          {user.name.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <div className="font-medium">{user.name}</div>
+                        <div className="text-sm text-muted-foreground">
+                          {user.email}
+                        </div>
+                      </div>
+                    </div>
                   </TableCell>
                   <TableCell>
+                    <Badge variant={user.isActive ? "default" : "destructive"}>
+                      {user.isActive ? "Active" : "Inactive"}
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-right">
                     <Button
                       onClick={() => toggleUserStatus(user.id)}
                       variant="outline"
                       size="sm"
-                      className={`${
-                        user.isActive
-                          ? "text-red-600 hover:bg-red-100 hover:border-red-500"
-                          : "text-green-600 hover:bg-green-100 hover:border-green-500"
-                      } border`}
                     >
+                      {user.isActive ? (
+                        <Ban className="mr-2 h-4 w-4 text-red-500" />
+                      ) : (
+                        <CheckCircle2 className="mr-2 h-4 w-4 text-green-500" />
+                      )}
                       {user.isActive ? "Deactivate" : "Activate"}
                     </Button>
                   </TableCell>
@@ -99,11 +122,14 @@ export function AdminsCard({
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={4}
-                  className="text-center text-muted-foreground py-6"
-                >
-                  No admins found.
+                <TableCell colSpan={3} className="h-48">
+                  <div className="flex flex-col items-center justify-center gap-3 text-center">
+                    <ShieldOff className="h-12 w-12 text-muted-foreground" />
+                    <h3 className="text-xl font-semibold">No Admins Found</h3>
+                    <p className="text-muted-foreground">
+                      Try clearing your search or add a new administrator.
+                    </p>
+                  </div>
                 </TableCell>
               </TableRow>
             )}

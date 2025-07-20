@@ -2,10 +2,8 @@ import { toast } from "sonner";
 import { create } from "zustand";
 import { devtools } from "zustand/middleware";
 
-import users from "./users";
+import users from "./users.json";
 import { AddAdmin, Transaction, User } from "@/types/types";
-
-import pp2 from "@/assets/imgs/pp2.png";
 
 interface AppState {
   users: User[];
@@ -117,8 +115,8 @@ export const useAppStore = create<AppState>()(
               email: newAdmin.email,
               password: newAdmin.password,
               registeredLocation: newAdmin.registeredLocation,
-              role: "admin", // or "superadmin", based on your enum
-              avatar: pp2.src,
+              role: "admin",
+              avatar: `https://i.pravatar.cc/40?u=${state.users.length + 1}}`,
               isActive: true,
               balance: 0,
               createdAt: new Date().toISOString(),
