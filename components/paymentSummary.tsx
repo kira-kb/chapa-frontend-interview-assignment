@@ -47,13 +47,6 @@ type SortConfig = {
   direction: "ascending" | "descending";
 };
 
-const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(amount);
-};
-
 export function UserPaymentsSummary({ users }: Props) {
   const [sortConfig, setSortConfig] = useState<SortConfig>({
     key: "balance",
@@ -179,13 +172,13 @@ export function UserPaymentsSummary({ users }: Props) {
                       </div>
                     </TableCell>
                     <TableCell className="text-right font-mono text-orange-600">
-                      {formatCurrency(user.totalSent)}
+                      ${user.totalSent.toLocaleString()}
                     </TableCell>
                     <TableCell className="text-right font-mono text-green-600">
-                      {formatCurrency(user.totalReceived)}
+                      ${user.totalReceived.toLocaleString()}
                     </TableCell>
                     <TableCell className="text-right font-mono font-semibold">
-                      {formatCurrency(user.balance)}
+                      ${user.balance.toLocaleString()}
                     </TableCell>
                   </TableRow>
                 ))

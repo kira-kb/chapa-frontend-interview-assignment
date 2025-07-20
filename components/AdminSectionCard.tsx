@@ -110,7 +110,7 @@ export function SuperAdminSectionCards() {
                 Total Transactions
               </span>
               <span className="text-2xl font-bold tabular-nums text-blue-600">
-                ${systemStats.totalPayments.toFixed(2)}
+                ${systemStats.totalPayments.toLocaleString()}
               </span>
             </div>
             <div className="flex flex-col">
