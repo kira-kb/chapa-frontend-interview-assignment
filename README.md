@@ -4,7 +4,7 @@ Welcome to the **Role-Based Wallet Dashboard** — a single-page mock app built 
 
 ## 🌍 Live Preview
 
-🔗 Hosted at: [https://chapa-frontend-interview-assignment-two.vercel.app/](https://chapa-frontend-interview-assignment-two.vercel.app/)
+🔗 Hosted at: [https://chapa-frontend-interview-assignment-test.vercel.app/](https://chapa-frontend-interview-assignment-test.vercel.app/)
 
 ## 🔐 How to Log In
 
