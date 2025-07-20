@@ -23,7 +23,6 @@ interface AppState {
 
   systemStats: {
     totalPayments: number;
-    activeUsers: number;
   };
 }
 
@@ -58,7 +57,17 @@ export const useAppStore = create<AppState>()(
 
     logout: () => set({ currentUser: null }),
 
-    initiateTransaction: (tx) =>
+    initiateTransaction: (tx) => {
+      const reciverUser = get().users.filter((u) => u.id === tx.to);
+
+      if (
+        !reciverUser ||
+        reciverUser[0].role === "super-admin" ||
+        reciverUser[0].role === "admin"
+      ) {
+        toast.error("Invalid User ID");
+        return {};
+      }
       delay(() =>
         set((state) => {
           const user = state.currentUser;
@@ -66,16 +75,25 @@ export const useAppStore = create<AppState>()(
 
           const reciverUser = state.users.filter((u) => u.id === tx.to);
 
-          if (!reciverUser) {
+          if (
+            !reciverUser ||
+            reciverUser[0].role === "super-admin" ||
+            reciverUser[0].role === "admin"
+          ) {
             toast.error("Invalid User ID");
             return {};
           }
+
+          // if (reciverUser[0].role === 'super-admin' || reciverUser[0].role === 'admin') {
+          //   toast.error("Invalid User ID");
+          //   return {};
+          // }
 
           const date = new Date();
 
           const newTx: Transaction = {
             id: Math.random().toString(36).substring(2),
-            date: `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`,
+            date: `${date.toISOString()}`,
             ...tx,
             from: "Me",
             to: reciverUser[0].name,
@@ -103,7 +121,8 @@ export const useAppStore = create<AppState>()(
             },
           };
         })
-      ),
+      );
+    },
 
     addAdmin: (newAdmin: AddAdmin) =>
       delay(() =>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react"; 
+import { useState, useEffect } from "react";
 import {
   Card,
   CardHeader,
@@ -63,23 +63,25 @@ export function UserPaymentsSummary({ users }: Props) {
   const [processedUsers, setProcessedUsers] = useState<UserSummary[]>([]);
 
   useEffect(() => {
-    const summaryData = users.map((user) => {
-      const totalSent = user.transactions
-        .filter((t) => t.type === "send")
-        .reduce((sum, t) => sum + t.amount, 0);
-      const totalReceived = user.transactions
-        .filter((t) => t.type === "receive")
-        .reduce((sum, t) => sum + t.amount, 0);
+    const summaryData = users
+      .filter((user) => user.role === "user")
+      .map((user) => {
+        const totalSent = user.transactions
+          .filter((t) => t.type === "send")
+          .reduce((sum, t) => sum + t.amount, 0);
+        const totalReceived = user.transactions
+          .filter((t) => t.type === "receive")
+          .reduce((sum, t) => sum + t.amount, 0);
 
-      return {
-        id: user.id,
-        name: user.name,
-        avatar: user.avatar,
-        totalSent,
-        totalReceived,
-        balance: user.balance,
-      };
-    });
+        return {
+          id: user.id,
+          name: user.name,
+          avatar: user.avatar,
+          totalSent,
+          totalReceived,
+          balance: user.balance,
+        };
+      });
 
     summaryData.sort((a, b) => {
       if (a[sortConfig.key] < b[sortConfig.key]) {
